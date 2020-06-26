@@ -28,6 +28,5 @@ public class UserController {
     public List<TestDo> selectAll(){
 
         return lettuce.selectAll();
-
     }
 }
