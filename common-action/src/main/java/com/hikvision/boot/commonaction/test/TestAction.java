@@ -67,6 +67,7 @@ public class TestAction {
     @RequestMapping("nsert1")
     @ResponseBody
     public boolean insert1() {
+        System.out.println("1");
         this.testService.insert1();
         return  true;
     }

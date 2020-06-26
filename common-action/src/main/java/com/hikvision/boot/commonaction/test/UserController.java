@@ -26,7 +26,7 @@ public class UserController {
     @RequestMapping("/selectAll")
 
     public List<TestDo> selectAll(){
-
+        System.out.println("2");
         return lettuce.selectAll();
     }
 }
