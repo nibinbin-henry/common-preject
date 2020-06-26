@@ -27,6 +27,7 @@ public class UserController {
 
     public List<TestDo> selectAll(){
         System.out.println("2");
+        System.out.println("1");
         return lettuce.selectAll();
     }
 }
