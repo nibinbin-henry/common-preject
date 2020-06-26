@@ -39,7 +39,6 @@ public class TestDataModel {
         return testDataInModel;
     }
 
-    
     public void setTestDataInModel(TestDataInModel testDataInModel) {
         this.testDataInModel = testDataInModel;
     }
