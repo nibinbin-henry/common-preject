@@ -46,7 +46,6 @@ public class TestDataModel {
     public int[] getArray() {
         return array;
     }
-
     public void setArray(int[] array) {
         this.array = array;
     }
