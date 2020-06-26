@@ -24,7 +24,9 @@ public class UserController {
     @Autowired
     private UserServiceImpl lettuce;
     @RequestMapping("/selectAll")
+
     public List<TestDo> selectAll(){
         return lettuce.selectAll();
+
     }
 }
