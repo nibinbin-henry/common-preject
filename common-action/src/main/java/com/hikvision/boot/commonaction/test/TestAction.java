@@ -35,6 +35,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/test")
 public class TestAction {
+
+
     @Resource
     private TestService testService;
     @Autowired
