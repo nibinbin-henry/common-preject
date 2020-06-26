@@ -16,7 +16,7 @@ public class TestDataInModel {
     public String getTestTestName() {
         return testTestName;
     }
-    
+
     public void setTestTestName(String testTestName) {
         this.testTestName = testTestName;
     }
