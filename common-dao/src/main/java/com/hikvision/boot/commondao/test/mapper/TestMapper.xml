@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hikvision.boot.commondao.test.TestDao">
+    <resultMap id="testMapper" type="com.hikvision.boot.commoncore.test.TestDo">
+        <id property="id" column="u_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="name" column="u_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="age" column="u_age" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="createTime" column="u_create_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="columns">
+        u_id,
+        u_name,
+        u_age,
+        u_create_time
+    </sql>
+
+    <sql id="field">
+        (
+         #{id},
+         #{name},
+         #{age},
+         #{createTime}
+        )
+    </sql>
+    <sql id="fileds">
+        (
+         <include refid="key"/>,
+         #{item.name},
+         #{item.age},
+         #{item.createTime}
+        )
+    </sql>
+
+    <sql id="table">
+        user
+    </sql>
+
+    <sql id="key">
+        (select replace(uuid(),'-',''))
+    </sql>
+
+    <sql id="idList">
+        <if test="list !=null and list.size() > 0">
+            or u_id in <foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
+        </if>
+    </sql>
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="testMapper">
+        select <include refid="columns"/> from <include refid="table"/> where u_id = #{id}
+    </select>
+
+    <select id="selectByIds" parameterType="java.util.List" resultMap="testMapper">
+        select <include refid="columns"/> from <include refid="table"/> where 1=2
+        <include refid="idList"/>
+    </select>
+
+    <select id="selectByMapper" parameterType="com.hikvision.boot.commoncore.test.TestDo" resultMap="testMapper">
+        select <include refid="columns"/> from <include refid="table"/>
+        <trim prefix="where" prefixOverrides="and">
+            <if test="id != null">and u_id = #{id}</if>
+            <if test="name != null">and u_name = #{name}</if>
+            <if test="age != null">and u_age = #{age}</if>
+            <if test="createTime">and u_craete_time = #{createTime}</if>
+        </trim>
+    </select>
+
+    <select id="selectAll" resultMap="testMapper">
+        select <include refid="columns"/> from <include refid="table"/>
+    </select>
+
+    <insert id="insert1"  parameterType="com.hikvision.boot.commoncore.test.TestDo">
+        <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+            <include refid="key"/>
+        </selectKey>
+        insert into <include refid="table"/>(<include refid="columns"/>)values<include refid="field"/>
+    </insert>
+
+    <insert id="insert2" parameterType="java.util.List">
+        insert into <include refid="table"/>(<include refid="columns"/>) values
+        <foreach collection="list" item="item" separator=",">
+            <include refid="fileds"/>
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from <include refid="table"/> where u_id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        delete from <include refid="table"/> where 1=2
+        <include refid="idList"/>
+    </delete>
+
+    <delete id="deleteAll">
+        delete from <include refid="table"/>
+    </delete>
+
+    <update id="update" parameterType="com.hikvision.boot.commoncore.test.TestDo">
+        update <include refid="table"/> set u_name = #{name}, u_age = #{age}, u_create_time = #{createTime}
+        where u_id = #{id}
+    </update>
+
+    <update id="updateList" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            update <include refid="table"/>
+            set u_name = #{item.name}, u_age= #{item.age}, u_create_time= #{item.createTime}
+            where u_id = #{item.id}
+        </foreach>
+    </update>
+
+</mapper>
