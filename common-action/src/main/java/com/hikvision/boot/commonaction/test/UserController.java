@@ -26,6 +26,7 @@ public class UserController {
     @RequestMapping("/selectAll")
 
     public List<TestDo> selectAll(){
+        
         return lettuce.selectAll();
 
     }
