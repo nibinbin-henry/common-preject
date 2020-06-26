@@ -74,7 +74,7 @@ public class TestAction {
         return  true;
     }
 
-    
+
     @RequestMapping("/randomString")
     @ResponseBody
     public String randomString() {
