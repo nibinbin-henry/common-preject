@@ -7,6 +7,7 @@ package com.hikvision.boot.commonaction.test;
  * @modify by
  */
 public class TestDataModel {
+
     private Integer age;
     private boolean married;
     private TestDataInModel testDataInModel;
